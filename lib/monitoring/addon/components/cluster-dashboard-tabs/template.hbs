@@ -43,6 +43,14 @@
   {{resource-event-list
     resourceType=(t "generic.cluster")
     clusterEvents=true
+    classNames="mt-20"
+    expandAll=al.expandAll
+    expandFn=expandFn
+  }}
+
+  {{workloads-overview
+    classNames="mt-20"
+    projects=scope.currentCluster.projects
     expandAll=al.expandAll
     expandFn=expandFn
   }}

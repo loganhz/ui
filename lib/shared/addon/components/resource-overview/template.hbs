@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col span-4 mt-10">
+    <span>
+      {{t (concat "formResourceOverview.resources." resourceName)}}
+      <small class="text-muted">
+        ({{total}})
+      </small>
+    </span>
+  </div>
+  <div class="col span-8 text-center mt-5">
+    {{progress-bar-multi
+        classNames="mt-5"
+        labelKey="state"
+        valueKey="count"
+        values=byColor
+        tooltipValues=byName
+    }}
+  </div>
+</div>
+
+

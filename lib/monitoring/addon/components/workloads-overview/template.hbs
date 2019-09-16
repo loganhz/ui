@@ -1,0 +1,19 @@
+{{#accordion-list-item
+    title=(t "formResourceOverview.title")
+    detail=(t "formResourceOverview.detail")
+    expandAll=expandAll
+    expand=(action expandFn)
+    expanded=expanded
+}}
+  {{#if (or expanded expandAll)}}
+    {{#each rows as |row|}}
+      <div class="row">
+        {{#each row as |project|}}
+          <div class="col span-4 box">
+            {{project-overview project=project}}
+          </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  {{/if}}
+{{/accordion-list-item}}

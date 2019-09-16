@@ -1,0 +1,23 @@
+<div>
+  <a href="{{href-to "authenticated.project" project.id}}">
+    {{t "projectGroup.label" name=project.displayName}}
+  </a>
+</div>
+{{#if loading}}
+  <div class="text-center text-muted mt-20">
+    <i class="icon icon-spinner icon-spin icon-2x"></i>
+  </div>
+{{else}}
+  {{#each resources as |resource|}}
+    {{resource-overview
+      resourceName=resource.name
+      byName=resource.byName
+      byColor=resource.byColor
+      total=resource.total
+    }}
+  {{else}}
+    <div class="text-muted text-center mt-10">
+      {{t "formResourceOverview.noData"}}
+    </div>
+  {{/each}}
+{{/if}}

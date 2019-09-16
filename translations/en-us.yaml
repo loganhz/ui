@@ -4806,6 +4806,15 @@ formEngineOpts:
     valueLabel: Mirror URL
     valuePlaceholder: e.g. https://my-mirror.example.com:5000
 
+formResourceOverview:
+  title: Workloads Overview
+  detail: States of Applications, Workloads and Pods in each projects of current cluster
+  resources:
+    app: Apps
+    workload: Workloads
+    pod: Pods
+  noData: No Data
+
 formResourceQuota:
   addQuotaLabel: Add Quota
   table:
