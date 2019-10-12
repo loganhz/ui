@@ -114,11 +114,11 @@ module.exports = function(defaults) {
   app.import('node_modules/xterm/dist/xterm.css');
   app.import('vendor/icons/style.css');
 
-  app.import('node_modules/ember-source/dist/ember-template-compiler.js');
+  app.import('vendor/ember/ember-template-compiler.js');
   app.import('vendor/aws-sdk-eks-ec2-iam-2.348.0.min.js');
   app.import('vendor/ember-shortcuts.js');
   app.import('vendor/aliyun-sdk.js');
-  app.import('vendor/cce-sdk.js');
+  // app.import('vendor/cce-sdk.js');
 
   app.import('vendor/icons/fonts/rancher-icons.svg',   { destDir: 'assets/fonts/' });
   app.import('vendor/icons/fonts/rancher-icons.ttf',   { destDir: 'assets/fonts/' });

@@ -33,7 +33,6 @@
     "prismjs": "*",
     "semver": "*",
     "shell-quote": "*",
-    "url-regex": "*",
     "xterm": "*",
     "yamljs": "*",
     "dot-object": "*"

@@ -24,13 +24,13 @@ export default Route.extend({
   beforeModel() {
     this.updateWindowTitle();
 
-    let agent = window.navigator.userAgent.toLowerCase();
+    // let agent = window.navigator.userAgent.toLowerCase();
 
-    if ( agent.indexOf('msie ') >= 0 || agent.indexOf('trident/') >= 0 ) {
-      this.replaceWith('ie');
+    // if ( agent.indexOf('msie ') >= 0 || agent.indexOf('trident/') >= 0 ) {
+    //   this.replaceWith('ie');
 
-      return;
-    }
+    //   return;
+    // }
 
     // Find out if auth is enabled
     return get(this, 'access').detect();
