@@ -6,6 +6,9 @@ import layout from './template';
 import { convertToMillis } from 'shared/utils/util';
 import { parseSi } from 'shared/utils/parse-unit';
 
+const CUSTOM_METRICS = 'custom.metrics.k8s.io';
+const EXTERNAL_METRICS = 'external.metrics.k8s.io';
+const METRICS_SERVER = 'metrics.k8s.io';
 const RESOURCE = 'Resource';
 const PODS = 'Pods';
 const OBJECT = 'Object';
@@ -188,6 +191,27 @@ export default Component.extend({
     if ( metricName === MEMORY && metricTargetType === AVERAGE_VALUE && metricType === RESOURCE ) {
       set(this, 'metric.target.averageValue', stringValue ? `${ stringValue }Mi` : null)
     }
+  }),
+
+  metricsServerDeployed: computed('resourceMetrics', function() {
+    return !!(this.resourceMetrics || []).find((m) => m.group === METRICS_SERVER)
+  }),
+
+  prometheusAdapterDeployed: computed('resourceMetrics', function() {
+    return !!(this.resourceMetrics || []).find((m) => m.group === CUSTOM_METRICS)
+  }),
+
+  externalServerDeployed: computed('resourceMetrics', function() {
+    return !!(this.resourceMetrics || []).find((m) => m.group === EXTERNAL_METRICS)
+  }),
+
+  metricsContent: computed('projectMetrics.[]', function() {
+    const projectMetrics = this.projectMetrics || []
+
+    return projectMetrics.map((m) => ({
+      label: m,
+      value: m
+    }))
   }),
 
   targetChoices: computed('metric.type', function() {

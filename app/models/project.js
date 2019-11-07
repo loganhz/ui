@@ -68,7 +68,7 @@ export default Resource.extend({
   }),
 
   canSaveMonitor: computed('isSystemProject', 'actionLinks.{editMonitoring,enableMonitoring}', function() {
-    if ( get(this, 'isSystemProject') ) {
+    if ( get(this, 'isSystemProject') || !this.scope.currentCluster.enableClusterMonitoring ) {
       return false;
     }
     const action = get(this, 'enableProjectMonitoring') ?  'editMonitoring' : 'enableMonitoring';

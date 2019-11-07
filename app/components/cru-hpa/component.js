@@ -70,10 +70,10 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     return (get(this, 'deployments') || []).filter((w) => get(w, 'namespaceId') === namespaceId).sortBy('displayName');
   }),
 
-  resourceMetricsAvailable: computed('apiServices', function() {
+  resourceMetrics: computed('apiServices', function() {
     const apiServices = get(this, 'apiServices') || [];
 
-    return apiServices.find((api) => get(api, 'name').split('.').length === 4 && get(api, 'name').endsWith(RESOURCE_METRICS_API_GROUP));
+    return apiServices.filter((api) => (api.group || '').endsWith(RESOURCE_METRICS_API_GROUP));
   }),
 
   validate() {

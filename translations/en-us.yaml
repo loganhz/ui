@@ -323,7 +323,6 @@ alertPage:
     expression:
       label: Expression
       noData: No metric graph data.
-      error: Failed to fetch metric graph data.
       placeholder: Input Expression
     removeAlert: Remove this Alert
     alertRule: Alert Rule
@@ -1450,7 +1449,7 @@ monitoringPage:
   confirmDisable: "Are you sure?  Click again to disable monitoring."
   disable: Disable
   enableActionLabel: Enable
-  systemProject: "If you want to collect custom metrics for pods in System Project, please enable cluster level monitoring directly."
+  systemProject: "There is no project monitoring in System project."
   noPermission: "You do not have permission to configure {level} level monitoring."
   toUpdate:
     cluster: Cluster level monitoring is enabled.
@@ -1468,7 +1467,7 @@ monitoringPage:
       cpu: To enable monitoring, you need at least {cpu} milli CPUs available.
       memory: To enable monitoring, you need at least {memory} MiB of memory available.
       all: To enable monitoring, you need at least {cpu} milli CPUs and {memory} MiB of memory available.
-  clusterNotEnabled: Cluster level monitoring is not enabled. Only custom metrics will be collected.
+  clusterNotEnabled: Cluster monitoring is not enabled. Please enable cluster monitoring first.
   prometheus: Monitoring is not enabled yet, click the Save button below to enable it.
   resourceLimitsHelp: 'When enabling monitoring, you need to ensure your worker nodes and Prometheus pod have enough resources. Please visit <a href="https://rancher.com/docs/rancher/v2.x/en/cluster-admin/tools/monitoring/#resource-consumption" target="_blank" rel="nofollow noreferrer">the Rancher docs</a> for suggested resource limits.'
   config:
@@ -9037,6 +9036,8 @@ searchableSelect:
   noMatch: No match
   noOptions: No available options
 
+metricsSelect:
+  placeholder: e.g. packets-per-second
 ##############################
 # Mixins
 ##############################

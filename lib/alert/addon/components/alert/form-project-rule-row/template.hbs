@@ -139,16 +139,12 @@
             class="form-control"
             value=model.metricRule.expression
             readOnly=(or (not-eq model._targetType "metric") graphLoading)
-            placeholder="Select a metric"
+            placeholder=(t "metricsSelect.placeholder")
             allowCustom=true
           }}
           {{#if (eq graphStatus "noData")}}
             <p class="text-muted text-small mt-0 mb-0">
               {{t "alertPage.newOrEdit.expression.noData"}}
-            </p>
-          {{else if (eq graphStatus "error")}}
-            <p class="text-error text-small mt-0 mb-0">
-              {{t "alertPage.newOrEdit.expression.error"}}
             </p>
           {{/if}}
         </div>

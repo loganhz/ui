@@ -140,6 +140,9 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getProjectId],
+        condition() {
+          return !get(this, 'project.isSystemProject')
+        }
       },
       {
         id:             'tools-pipeline',

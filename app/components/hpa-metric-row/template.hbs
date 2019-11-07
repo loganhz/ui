@@ -1,15 +1,20 @@
 <div class="box mb-10">
-  {{#unless (eq metric.type "Resource")}}
+  {{#if (and (eq metric.type "External") (not externalServerDeployed))}}
     {{banner-message
       color="bg-warning"
-      message=(t (if (eq metric.type "External") "cruHpa.metrics.types.warning.external" "cruHpa.metrics.types.warning.custom" ))
+      message=(t "cruHpa.metrics.types.warning.external")
     }}
-  {{else if (not resourceMetricsAvailable)}}
+  {{else if (and (eq metric.type "Resource") (not metricsServerDeployed))}}
     {{banner-message
       color="bg-warning"
       message=(t "cruHpa.metrics.types.warning.resource")
     }}
-  {{/unless}}
+  {{else if (and (or (eq metric.type "Pods") (eq metric.type "Object")) (not prometheusAdapterDeployed))}}
+    {{banner-message
+      color="bg-warning"
+      message=(t "cruHpa.metrics.types.warning.custom")
+    }}
+  {{/if}}
 
   {{#if showCpuReservationWarning}}
     {{banner-message
@@ -93,7 +98,7 @@
           localizedLabel=true
           disabled=(not editing)
         }}
-      {{else}}
+      {{else if (eq metric.type "External")}}
         {{#input-or-display
           editable=editing
           value=metric.name
@@ -105,6 +110,21 @@
             type="text"
             value=metric.name
             placeholder=(t "cruHpa.metrics.name.placeholder")
+          }}
+        {{/input-or-display}}
+      {{else}}
+        {{#input-or-display
+          editable=editing
+          value=metric.name
+          classesForDisplay="text-muted form-control-static"
+        }}
+          {{alert-select
+            id=(concat elementId "-input-metrics-name")
+            content=metricsContent
+            class="form-control"
+            value=metric.name
+            placeholder=(t "cruHpa.metrics.name.placeholder")
+            allowCustom=true
           }}
         {{/input-or-display}}
       {{/if}}
