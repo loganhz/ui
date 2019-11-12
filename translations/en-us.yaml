@@ -3166,6 +3166,7 @@ clusterRow:
   addHost: Add Nodes
   importCluster: Use existing Kubernetes
   loginDefault: Login
+  adminCluster: Admin Cluster
 
 clusterTemplateRow:
   label: 'RKE Template'
@@ -9212,6 +9213,7 @@ action:
   exportConfig: Export Config
   garbageCollect: Cleanup
   logs: View Logs
+  makeAdmin: Set as Admin Cluster
   makeDefault: Set as Default
   move: Move
   mute: Mute
@@ -9229,6 +9231,7 @@ action:
       message: A group memebership refresh has been triggered for all users.
   remove: Delete
   replay: Replay
+  resetAdmin: Reset Admin Cluster
   resetDefault: Reset default
   restart: Restart
   restoreFromEtcdBackup: Restore Snapshot
