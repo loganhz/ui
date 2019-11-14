@@ -1,0 +1,22 @@
+{{#if model.adminClusterDefined}}
+  {{thanos-catalog
+    app=model.app
+    cluster=model.cluster
+    project=model.project
+    nsExists=model.nsExists
+    storageClasses=model.storageClasses
+    persistentVolumeClaims=model.persistentVolumeClaims
+    namespace=model.namespace
+    cancel=(action "cancel")
+  }}
+{{else if model.adminClusterUnavailable}}
+  {{banner-message
+    message=(t "globalMonitoringPage.adminClusterUnavailable")
+    color="bg-warning"
+  }}
+{{else}}
+  {{banner-message
+    message=(t "globalMonitoringPage.noAdminCluster")
+    color="bg-info"
+  }}
+{{/if}}

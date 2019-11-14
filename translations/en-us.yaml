@@ -1887,6 +1887,46 @@ destinationRulePage:
     subsets:
       label: Subsets
 
+globalMonitoringPage:
+  header: Global Monitoring
+  enabled: "Global Monitoring is enabled."
+  disabled: "Global Monitoring is not enabled yet. Please click Enable button to enable it."
+  notReady: Installing Global Monitoring into the system project of admin cluster...
+  version: Global Monitoring Version
+  disable: Disable
+  enableActionLabel: Enable
+  noAdminCluster: There is no admin cluster defined. Please go to cluster list and set a cluster as admin cluster.
+  adminClusterUnavailable: Admin cluster is unavailable.
+  customAnswers:
+    title: Custom Answers
+    detail: Configure custom answers.
+  nodeSelector:
+    addSelectorLabel: Add Selector
+    helpText: Select the nodes where {component} workloads will be scheduled to
+  links:
+    grafana:
+      label: Grafana UI
+    globalMonitoring:
+      label: Global Dashboard
+    thanos:
+      label: Thanos UI
+  thanosQuery:
+    title: Thanos Query
+    detail: Thanos Query configuration.
+  insufficientSize:
+    total:
+      cpu: Please make sure you have at least {minCpu} milli CPUs available to {action} Global Monitoring.
+      memory: Please make sure you have at least {minMemory} MiB of memory available to {action} Global Monitoring.
+      all: Please make sure you have at least {minCpu} milli CPUs and {minMemory} MiB of memory available to {action} Global Monitoring.
+    workload:
+      cpu: Please make sure you have at least one node with {cpu} milli CPUs available to deploy {component} workload.
+      memory: Please make sure you have at least one node with {memory} MiB of memory available to deploy {component} workload.
+      all: Please make sure you have at least one node with {cpu} milli CPUs and {memory} MiB of memory available to deploy {component} workload.
+    selectors:
+      cpu: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs available to enable {component} workload.
+      memory: Please make sure you have at least one node matches node selectors with {memory} MiB of memory available to enable {component} workload.
+      all: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs and {memory} MiB of memory available to enable {component} workload.
+      unsupported: 'Node selector with value "true", "false" or number is not supported'
 globalRegistryPage:
   header: Global Registry
   enabled: Registry is enabled. Click <a href="{url}/registry" target="_blank" rel="nofollow noopener noreferrer">here</a> to open Harbor UI in a new tab.
@@ -9141,6 +9181,7 @@ nav:
     globalDns: Global DNS
     globalDnsEntries: Global DNS Entries
     globalDnsProviders: Global DNS Providers
+    globalMonitoring: Global Monitoring
     globalRegistry: Global Registry
     multiClusterApps: Apps
     security:

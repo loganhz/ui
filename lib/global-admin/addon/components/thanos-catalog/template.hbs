@@ -1,0 +1,152 @@
+<section class="header clearfix">
+  <h1 class="pull-left">
+    {{t "globalMonitoringPage.header"}}
+  </h1>
+</section>
+
+{{#if (and enabled ready)}}
+  {{banner-message
+    color="bg-info"
+    message=(t "globalMonitoringPage.enabled")
+  }}
+{{else if enabled}}
+  {{banner-message
+    color="bg-warning"
+    message=(t "globalMonitoringPage.notReady")
+  }}
+{{else}}
+  {{banner-message
+    color="bg-warning"
+    message=(t "globalMonitoringPage.disabled")
+  }}
+{{/if}}
+
+{{#if (and enabled ready)}}
+  <div class="row">
+    {{component-status
+      label="globalMonitoringPage.links.globalMonitoring.label"
+      url=globalMonitoringUrl
+      logo="global-monitoring"
+    }}
+    {{component-status
+      label="globalMonitoringPage.links.grafana.label"
+      url=grafanaUrl
+      logo="grafana"
+    }}
+    {{component-status
+      label="globalMonitoringPage.links.thanos.label"
+      url=thanosUrl
+      logo="thanos"
+    }}
+  </div>
+{{/if}}
+
+<div class="row mt-10 mb-10">
+  <div class="col span-6">
+    <label class="acc-label">
+      {{t "globalMonitoringPage.version"}}
+      {{#if (and enabled latestVersion templateVersion (not-eq latestVersion templateVersion))}}
+        <span class="bg-warning pt-0 pb-0 pl-5 pr-5">
+          {{t "monitoringPage.upgradeAvailable" version=latestVersion}}
+        </span>
+      {{/if}}
+    </label>
+    <div>
+      {{new-select
+        classNames="form-control"
+        content=chartVersions
+        value=templateVersion
+      }}
+    </div>
+  </div>
+</div>
+
+{{#accordion-list as | al expandFn |}}
+  {{#accordion-list-item
+    title=(t "globalMonitoringPage.thanosQuery.title")
+    detail=(t "globalMonitoringPage.thanosQuery.detail")
+    expandAll=al.expandAll
+    expand=(action expandFn)
+    expandOnInit=false
+  }}
+    {{form-reservation
+      component="Thanos Query"
+      requestCpu=config.thanosQueryRequestCpu
+      requestMemory=config.thanosQueryRequestMemory
+      limitCpu=config.thanosQueryLimitCpu
+      limitMemory=config.thanosQueryLimitMemory
+    }}
+
+    <div class="row">
+      <div class="col span-12">
+        <label class="acc-label">
+          {{t "globalMonitoringPage.nodeSelector.helpText" component="Thanos Query"}}
+        </label>
+        {{form-key-value
+          changedArray=(action (mut thanosQueryNodeSelectors))
+          initialMap=thanosQueryNodeSelector
+          allowEmptyValue=true
+          addActionLabel="globalMonitoringPage.nodeSelector.addSelectorLabel"
+        }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col span-12">
+        {{scheduling-toleration
+          editing=true
+          tolerate=thanosQueryTolerations
+          title=(t "formScheduling.toleration.workloadTitle" workload="Thanos Query")
+        }}
+      </div>
+    </div>
+  {{/accordion-list-item}}
+
+  {{#accordion-list-item
+    title=(t "globalMonitoringPage.customAnswers.title")
+    detail=(t "globalMonitoringPage.customAnswers.detail")
+    expandAll=al.expandAll
+    expand=(action expandFn)
+    expandOnInit=false
+  }}
+    {{form-key-value
+      initialMap=customAnswers
+      changed=(action (mut customAnswers))
+      allowEmptyValue=true
+      addInitialEmptyRow=true
+      editing=true
+      header=(t "newCatalog.answers.label")
+      addActionLabel="newCatalog.answers.addAction"
+      keyLabel="newContainer.environment.keyLabel"
+      keyPlaceholder="newContainer.environment.keyPlaceholder"
+      valueLabel="newContainer.environment.valueLabel"
+      valuePlaceholder="newContainer.environment.valuePlaceholder"
+    }}
+  {{/accordion-list-item}}
+{{/accordion-list}}
+
+{{#if (or thanosQueryWarning monitoringWarning)}}
+  {{#banner-message color="bg-warning"}}
+    {{#if monitoringWarning}}
+      <p>{{monitoringWarning}}</p>
+    {{else}}
+      <p>{{thanosQueryWarning}}</p>
+    {{/if}}
+  {{/banner-message}}
+{{/if}}
+
+{{top-errors errors=errors}}
+
+{{#save-cancel
+  saveDisabled=saveDisabled
+  editing=enabled
+  createLabel="globalMonitoringPage.enableActionLabel"
+  save=(action "save")
+  saved=saved
+  cancelDisabled=true
+}}
+  {{#if (and enabled canEnable)}}
+    <button class="btn bg-error" {{action "disable"}}>
+      {{t "globalMonitoringPage.disable"}}
+    </button>
+  {{/if}}
+{{/save-cancel}}
