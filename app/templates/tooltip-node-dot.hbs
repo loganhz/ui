@@ -1,0 +1,43 @@
+<div class="tooltip-content-inner tooltip-dot">
+  <ActionMenu
+    @model={{model}}
+    @showPrimary={{false}}
+    @inTooltip={{true}}
+    @class="pull-right tooltip-more-actions"
+  />
+
+  <div class="display-name">
+    <a href="{{href-to "authenticated.cluster.monitoring.node-detail" model.clusterId model.id}}">
+      {{model.displayName}}
+    </a>
+  </div>
+
+  <div class="clearfix">
+    <div class="pull-right">
+      <BadgeState
+        @classNames="btn-xs"
+        @model={{model}}
+      />
+    </div>
+    <div class="display-ip pull-left pr-5">
+      {{#if (and model.externalIpAddress (not-eq model.externalIpAddress model.ipAddress))}}
+        {{format-ip model.externalIpAddress}} /
+      {{/if}}
+    </div>
+    <div class="display-ip pull-left pr-5">
+      {{#if model.ipAddress}}
+        {{format-ip model.ipAddress}}
+      {{/if}}
+    </div>
+  </div>
+
+  {{#each model.displayRoles as |role|}}
+    <div class="badge badge-xs vertical-middle">
+      {{role}}
+    </div>
+  {{/each}}
+
+  {{#if model.showTransitioningMessage}}
+    <div class="text-small bg-body p-5 mt-5 force-wrap {{model.stateColor}}">{{uc-first model.transitioningMessage}}</div>
+  {{/if}}
+</div>

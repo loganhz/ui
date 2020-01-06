@@ -1373,6 +1373,9 @@ clustersPage:
       label: "Add Cluster - Select Cluster Type"
     template:
       label: "Add Cluster - Select RKE Template"
+  table:
+    noMatch: No nodes match the current search.
+    noData: There are no nodes defined
 
 clusterRibbonNav:
   title: Recent Clusters

@@ -4,6 +4,9 @@
       {{check-box nodeId=model.id}}
     {{/if}}
   </td>
+  <td>
+    <i role="button" {{action "toggle"}} class="icon icon-play eased text-small text-muted {{if expanded "icon-rotate-90"}}"><span class="visually-hidden">Open accordion</span></i>
+  </td>
   <td data-title="{{dt.state}}" class="state">
     {{badge-state model=model}}
   </td>
@@ -52,7 +55,11 @@
   {{else}}
     <td data-title="{{dt.nodes}}">
       {{#link-to-external "authenticated.cluster.nodes" model.id}}
-        {{model.machines.length}}
+        {{#if (gt (get subMatches model.id) 0)}}
+          <b>{{model.machines.length}}</b>
+        {{else}}
+          {{model.machines.length}}
+        {{/if}}
       {{/link-to-external}}
     </td>
     <td data-title="{{dt.cpu}}">
@@ -81,6 +88,24 @@
     {{action-menu model=model}}
   </td>
 </tr>
+
+<tr class="sub-row {{unless expanded "hide"}}">
+  <td colspan="2">{{! checkbox and expand}}</td>
+  <td colspan="{{sub fullColspan 2}}">
+    {{#if expanded}}
+      <NodeDots
+        @nodes={{model.nodes}}
+        @searchText={{searchText}}
+      />
+    {{/if}}
+  </td>
+</tr>
+
+{{#if expanded}}
+  <tr class="separator-row">
+    <td colspan="{{fullColspan}}"></td>
+  </tr>
+{{/if}}
 
 {{#if model.showTransitioningMessage}}
   {{error-sub-row fullColspan=fullColspan model=model}}

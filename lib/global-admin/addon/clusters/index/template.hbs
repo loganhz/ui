@@ -21,18 +21,25 @@
    body=model.clusters
    searchText=searchText
    descending=descending
+   subRows=true
    sortBy=sortBy
    bulkActions=true
    extraSearchFields=extraSearchFields
+   extraSearchSubFields=extraSearchSubFields
+   subSearchField="nodes"
    pagingLabel="pagination.cluster"
    headers=headers as |sortable kind inst dt|
 }}
   {{#if (eq kind "row")}}
     {{cluster-row
       model=inst
+      toggle=(action "toggleExpand")
       fullColspan=sortable.fullColspan
       launchOnCluster=(action "launchOnCluster")
       useKubernetes=(action "useKubernetes")
+      expanded=(array-includes expandedInstances inst.id)
+      subMatches=sortable.subMatches
+      searchText=searchText
       dt=dt
     }}
   {{else if (eq kind "nomatch")}}
