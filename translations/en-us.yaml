@@ -2035,8 +2035,9 @@ globalMonitoringPage:
         label: Aliyun OSS Bucket Name
         placeholder: "e.g. backups"
       endpoint:
-        label: Aliyun OSS Region Endpoint
-        placeholder: "e.g. oss-cn-shanghai.aliyuncs.com"
+        label: Aliyun OSS Region
+        shanghai: oss-cn-shanghai
+        hangzhou: oss-cn-hangzhou
       accessKey:
         label: Aliyun OSS Access Key
         placeholder: Your Aliyun access key
