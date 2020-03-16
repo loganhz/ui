@@ -5516,6 +5516,8 @@ dangerZone:
     'cluster-template-enforcement': 'Non-admins will be restricted to launching clusters via preapproved RKE Templates only.'
     'auth-user-session-ttl-minutes': 'Custom TTL (in minutes) on a user auth session.'
     'rke-metadata-config': 'Configure RKE metadata refresh parameters.'
+    'ui-footer-text': 'Extra text in footer.'
+    'ui-footer-url': 'URL for the extra text in footer.'
 
 deleteEksCluster:
   title: "Delete {clusterName}?"
