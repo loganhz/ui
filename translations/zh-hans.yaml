@@ -5522,6 +5522,8 @@ dangerZone:
     'cluster-template-enforcement': '非管理员只能通过预先批准的集群模板启动集群。'
     'auth-user-session-ttl-minutes': '用户验证会话上的自定义TTL(以分钟为单位)。'
     'rke-metadata-config': '配置RKE元数据刷新参数。'
+    'ui-footer-text': '额外的页脚内容'
+    'ui-footer-url': '额外页脚内容对应的链接'
 
 deleteEksCluster:
   title: "确定删除集群{clusterName}吗?"

@@ -5571,6 +5571,8 @@ dangerZone:
     'auth-user-session-ttl-minutes': 'Custom TTL (in minutes) on a user auth session.'
     'auditlog-server-url': 'Configure the audit log service url'
     'rke-metadata-config': 'Configure RKE metadata refresh parameters.'
+    'ui-footer-text': 'Extra text in footer.'
+    'ui-footer-url': 'URL for the extra text in footer.'
 
 deleteEksCluster:
   title: "Delete {clusterName}?"
