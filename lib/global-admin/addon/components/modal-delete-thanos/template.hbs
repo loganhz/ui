@@ -1,0 +1,40 @@
+<h2>
+  {{t "modalDeleteThanos.title"}}
+</h2>
+
+<ul class="list-unstyled pl-30">
+  <li>
+    <label>
+      <RadioButton
+        @selection={{onlyThanos}}
+        @value={{true}}
+      />
+      <span>
+        {{t "modalDeleteThanos.onlyThanos.true"}}
+      </span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <RadioButton
+        @selection={{onlyThanos}}
+        @value={{false}}
+      />
+      <span>
+        {{t "modalDeleteThanos.onlyThanos.false"}}
+      </span>
+    </label>
+  </li>
+</ul>
+
+<SaveCancel
+  @editing={{true}}
+  @saving={{saving}}
+  @editLabel="modalDeleteThanos.disable"
+  @savingLabel="modalDeleteThanos.disabling"
+  @save={{action "confirm"}}
+  @cancel={{action "cancel"}}
+  @saveColor="bg-error"
+  @savedColor="bg-error"
+  @savingColor="bg-error"
+/>

@@ -324,7 +324,7 @@ alertPage:
       label: Expression
       noData: No metric graph data.
       error: Failed to fetch metric graph data.
-      placeholder: Input Expression
+      placeholder: your prometheus expression
     removeAlert: Remove this Alert
     alertRule: Alert Rule
     groupWaitSeconds:
@@ -1905,6 +1905,10 @@ destinationRulePage:
     subsets:
       label: Subsets
 
+globalAlertPage:
+  header: Global Alerts (Experimental)
+  globalAlertNotEnabled: Global monitoring is not enabled. Before you enable global monitoring, you will not be able to receive any alerts.
+
 globalMonitoringPage:
   header: Global Monitoring (Experimental)
   cluster: Global Monitoring Cluster
@@ -1920,6 +1924,10 @@ globalMonitoringPage:
   enableActionLabel: Enable
   globalMonitoringClusterUnavailable: Cluster {clusterName} is unavailable.
   objectStorageWarning: Thanos sidecar in each cluster requires the object storage crednetials. So cluster owners will also be able to see the object storage crednetials in the System projects.
+  goToMonitoring: 'Cluster monitoring in the selected cluster needs to be on for Global monitoring to work. If you would like to modify the values please go to the <a href="/c/{clusterId}/monitoring/cluster-setting">Monitoring page</a> and save.'
+  upgradeMonitoring: 'Before enabling Global Monitoring, you need to upgrade cluster monitoring in the selected cluster to version 0.0.7000 or above first. Go <a href="/c/{clusterId}/monitoring/cluster-setting">here</a> to upgrade cluster monitoring.'
+  enableMonitoring:
+    label: Enable Cluster Monitoring in the selected cluster as well
   customAnswers:
     title: Custom Answers
     detail: Configure custom answers.
@@ -1938,6 +1946,9 @@ globalMonitoringPage:
     detail: Query Prometheus metrics across multiple clusters.
     serviceType:
       label: Thanos Query UI Service
+  alert:
+    title: Alert Manager
+    detail: Alert Manager sends out alerts based on Prometheus expression.
   store:
     title: Object Storage
     detail: Store Prometheus metrics across multiple clusters to object storage for unlimited time.
@@ -2921,6 +2932,7 @@ waitingPage:
 
 notifierPage:
   notifiers: Notifiers
+  globalNotifiers: Global Notifiers
   testedBtnLabel: OK
   testingBtnLabel: Testing
   deleteErrorMessage: 'Notifier {displayName} is in use by: {alertNames}'
@@ -7561,6 +7573,14 @@ modalDeleteIstio:
   disable: Disable
   disabling: Disabling
 
+modalDeleteThanos:
+  title: 'Are you sure you want to disable:'
+  onlyThanos:
+    true: Global monitoring only
+    false: Global monitoring and cluster monitoring in this cluster
+  disable: Disable
+  disabling: Disabling
+
 newCertificate:
   title:
     new: Add Certificate
@@ -9471,6 +9491,8 @@ nav:
     globalDnsEntries: Global DNS Entries
     globalDnsProviders: Global DNS Providers
     globalMonitoring: Global Monitoring
+    globalNotifier: Global Notifiers
+    globalAlert: Global Alerts
     globalRegistry: Global Registry
     multiClusterApps: Apps
     security:

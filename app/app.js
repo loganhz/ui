@@ -153,6 +153,8 @@ const App = Application.extend({
           notifier:                                           'authenticated.cluster.notifier',
           'authenticated.cluster.monitoring.cluster-setting': 'authenticated.cluster.monitoring.cluster-setting',
           'authenticated.project.monitoring.project-setting': 'authenticated.project.monitoring.project-setting',
+          'global-admin.global-monitoring':                   'global-admin.global-monitoring',
+          'global-admin.alert.global-alert':                  'global-admin.alert.global-alert'
         }
       }
     },

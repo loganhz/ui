@@ -32,6 +32,14 @@
         canExpand=false
         groups=groups
       }}
+    {{else if (eq pageScope "global")}}
+      <GlobalAlertRow
+        @notifiers={{filteredNotifiers}}
+        @model={{row}}
+        @dt={{dt}}
+        @canExpand={{false}}
+        @groups={{groups}}
+      />
     {{/if}}
   {{else if (eq kind "nomatch")}}
     <tr>

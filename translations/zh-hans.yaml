@@ -324,7 +324,7 @@ alertPage:
       label: 表达式
       noData: 图表无数据
       error: 获取图表数据失败
-      placeholder: 输入表达式
+      placeholder: 你的 Prometheus 表达式
     removeAlert: 删除告警规则
     alertRule: 告警规则
     groupWaitSeconds:
@@ -1897,6 +1897,10 @@ destinationRulePage:
     subsets:
       label: Subsets
 
+globalAlertPage:
+  header: 全局告警（实验性）
+  globalAlertNotEnabled: 全局监控尚未启用。在您激活全局监控前，您不会收到任何告警。
+
 globalMonitoringPage:
   header: 全局监控（实验性）
   cluster: 全局监控所在集群
@@ -1912,6 +1916,10 @@ globalMonitoringPage:
   enableActionLabel: 启用
   globalMonitoringClusterUnavailable: 集群 {clusterName} 不可用。
   objectStorageWarning: 每个集群中的Thanos sidecar都需要对象存储的密钥。所以这些集群的管理员也可以在集群的系统项目里看到你所配置的存储的密钥。
+  goToMonitoring: '在部署全局监控的集群中需要激活集群监控。如果你想要修改集群监控的参数，请跳转到<a href="/c/{clusterId}/monitoring/cluster-setting">集群监控页面</a>。'
+  upgradeMonitoring: '在激活全局监控之前，你需要升级部署全局监控的集群中的集群监控的版本。请跳转到<a href="/c/{clusterId}/monitoring/cluster-setting">升级集群监控页面</a>。'
+  enableMonitoring:
+    label: 在选中的集群中同时激活集群监控
   customAnswers:
     title: 自定义应答
     detail: 配置自定义的应答。
@@ -1930,6 +1938,9 @@ globalMonitoringPage:
     detail: 查询多集群Prometheus指标的组件。
     serviceType:
       label: Thanos Query UI 服务类型
+  alert:
+    title: 全局告警
+    detail: 全局告警可以发送基于 Prometheus 表达式的告警
   store:
     title: 对象存储
     detail: 将多集群的Prometheus指标存储到对象存储上。
@@ -2914,6 +2925,7 @@ waitingPage:
 
 notifierPage:
   notifiers: 通知
+  globalNotifiers: 全局通知
   testedBtnLabel: OK
   testingBtnLabel: 测试
   deleteErrorMessage: '通知程序{displayName}正在由{alertNames}使用'
@@ -6590,7 +6602,7 @@ formScheduling:
   toleration:
     title: 调度容忍
     add: 添加调度容忍
-    workloadTitle: "{workload}Pod的容忍"
+    workloadTitle: "{workload} Pod的容忍"
   scaling:
     minMaxDetail: 如果设置，用户将无法通过界面或API请求使容器数量低于最小数量或超过最大数量。
     incrementDetail: 如果设置，容器数量必须是它的倍数。
@@ -7512,6 +7524,14 @@ modalDeleteIstio:
   onlyIstio:
     true: 仅Istio
     false: 包括Istio和Monitoring
+  disable: 禁用
+  disabling: 禁用中
+
+modalDeleteThanos:
+  title: '您确定要禁用:'
+  onlyIstio:
+    true: 仅全局监控
+    false: 包括全局监控和全局监控所在集群的集群监控
   disable: 禁用
   disabling: 禁用中
 
@@ -9415,6 +9435,8 @@ nav:
     globalDns: 全局DNS服务
     globalDnsEntries: 全局DNS服务
     globalDnsProviders: 全局DNS提供商
+    globalNotifier: 全局通知
+    globalAlert: 全局告警
     globalRegistry: 全局镜像库
     globalMonitoring: 全局监控
     multiClusterApps: 多集群应用
@@ -10189,7 +10211,7 @@ selectValueCheck:
       =1 {请选择新的值。以下内容不再有效:}
       other {请选择新的值。以下内容不再有效:}
     }
-  
+
 customMenus:
   index:
     header: 自定义菜单

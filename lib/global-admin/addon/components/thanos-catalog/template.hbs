@@ -68,6 +68,36 @@
   </div>
 </div>
 
+<div class="row mt-10 mb-10">
+  {{#unless enableClusterMonitoring}}
+    <div class="col span-6">
+      <label class="acc-label">
+        &nbsp;
+      </label>
+      <div>
+        {{input
+          type="checkbox"
+          checked=true
+          id="input-enable-monitoring"
+          disabled=true
+        }}
+        {{t "globalMonitoringPage.enableMonitoring.label"}}
+        <TooltipElement
+          @type="tooltip-basic"
+          @model={{t "globalMonitoringPage.goToMonitoring" clusterId=cluster.id htmlSafe=true}}
+          @tooltipTemplate="tooltip-static"
+          @aria-describedby="tooltip-base"
+          @baseClass="text-left"
+        >
+          <span>
+            <i class="icon icon-help icon-blue"/>
+          </span>
+        </TooltipElement>
+      </div>
+    </div>
+  {{/unless}}
+</div>
+
 <AccordionList as | al expandFn |>
   <AccordionListItem
     @title={{t "globalMonitoringPage.thanos.title"}}
@@ -340,6 +370,78 @@
   </AccordionListItem>
 
   <AccordionListItem
+    @title={{t "globalMonitoringPage.alert.title"}}
+    @detail={{t "globalMonitoringPage.alert.detail"}}
+    @expandAll={{al.expandAll}}
+    @expand={{action expandFn}}
+    @expandOnInit={{false}}
+  >
+    <FormReservation
+      @component="Alert Manager"
+      @requestCpu={{config.alertmanagerRequestCpu}}
+      @requestMemory={{config.alertmanagerRequestMemory}}
+      @limitCpu={{config.alertmanagerLimitCpu}}
+      @limitMemory={{config.alertmanagerLimitMemory}}
+    />
+
+    <div class="row">
+      <div class="col span-12">
+        <label class="acc-label">
+          {{t "globalMonitoringPage.nodeSelector.helpText" component="Alert Manager"}}
+        </label>
+        <FormKeyValue
+          @changedArray={{action (mut alertmanagerNodeSelectors)}}
+          @initialMap={{alertmanagerNodeSelector}}
+          @allowEmptyValue={{true}}
+          @addActionLabel="globalMonitoringPage.nodeSelector.addSelectorLabel"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col span-12">
+        <SchedulingToleration
+          @editing={{true}}
+          @tolerate={{alertmanagerTolerations}}
+          @title={{t "formScheduling.toleration.workloadTitle" workload="Alert Manager"}}
+        />
+      </div>
+    </div>
+
+    <hr class="mt-15 mb-15"/>
+
+    <FormReservation
+      @component="Thanos Rule"
+      @requestCpu={{config.ruleRequestCpu}}
+      @requestMemory={{config.ruleRequestMemory}}
+      @limitCpu={{config.ruleLimitCpu}}
+      @limitMemory={{config.ruleLimitMemory}}
+    />
+
+    <div class="row">
+      <div class="col span-12">
+        <label class="acc-label">
+          {{t "globalMonitoringPage.nodeSelector.helpText" component="Thanos Rule"}}
+        </label>
+        <FormKeyValue
+          @changedArray={{action (mut ruleNodeSelectors)}}
+          @initialMap={{ruleNodeSelector}}
+          @allowEmptyValue={{true}}
+          @addActionLabel="globalMonitoringPage.nodeSelector.addSelectorLabel"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col span-12">
+        <SchedulingToleration
+          @editing={{true}}
+          @tolerate={{ruleTolerations}}
+          @title={{t "formScheduling.toleration.workloadTitle" workload="Thanos Rule"}}
+        />
+      </div>
+    </div>
+  </AccordionListItem>
+
+  <AccordionListItem
     @title={{t "globalMonitoringPage.customAnswers.title"}}
     @detail={{t "globalMonitoringPage.customAnswers.detail"}}
     @expandAll={{al.expandAll}}
@@ -386,6 +488,13 @@
 
 <TopErrors @errors={{errors}} />
 
+{{#if showCannotReuseWarning}}
+  {{banner-message
+    color="bg-warning"
+    message=(t "globalMonitoringPage.upgradeMonitoring" clusterId=cluster.id htmlSafe=true)
+  }}
+{{/if}}
+
 <SaveCancel
   @saveDisabled={{saveDisabled}}
   @editing={{enabled}}
@@ -394,11 +503,7 @@
   @saved={{saved}}
   @cancelDisabled={{true}}
 >
-  {{#if (and enabled confirmDisable)}}
-    <button class="btn bg-error" {{action "disable"}}>
-      {{t "globalMonitoringPage.confirmDisable"}}
-    </button>
-  {{else if enabled}}
+  {{#if enabled}}
     <button class="btn bg-error" {{action "promptDisable"}}>
       {{t "globalMonitoringPage.disable"}}
     </button>

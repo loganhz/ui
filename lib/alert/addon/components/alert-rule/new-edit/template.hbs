@@ -15,10 +15,17 @@
           {{t "alertPage.newOrEdit.enableMonitoring"}}
         {{/link-to-external}}.
       </p>
-    {{else}}
+    {{else if (eq pageScope "project")}}
       <p>
         {{t "alertPage.newOrEdit.monitoringDisabled"}}
         {{#link-to-external "authenticated.project.monitoring.project-setting"}}
+          {{t "alertPage.newOrEdit.enableMonitoring"}}
+        {{/link-to-external}}.
+      </p>
+    {{else}}
+      <p>
+        {{t "alertPage.newOrEdit.monitoringDisabled"}}
+        {{#link-to-external "global-admin.global-monitoring"}}
           {{t "alertPage.newOrEdit.enableMonitoring"}}
         {{/link-to-external}}.
       </p>
@@ -50,6 +57,18 @@
       metrics=metrics
       editRule=editRule
       monitoringEnabled=monitoringEnabled
+      alertGroup=alertGroup
+      mode=mode
+      level=level
+    }}
+  {{else}}
+    {{alert/form-global-rule-row
+      pageScope=pageScope
+      isCreate=isCreate
+      model=alertRule
+      monitoringEnabled=monitoringEnabled
+      metrics=metrics
+      editRule=editRule
       alertGroup=alertGroup
       mode=mode
       level=level

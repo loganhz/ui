@@ -1,0 +1,148 @@
+<div class="box mb-10">
+  <div class="row">
+    {{#if (and editing (gt alertRules.length 1))}}
+      <div class="pull-right">
+        {{#if canRemoveRule}}
+          <button class="btn bg-transparent text-small vertical-middle" {{action removeRule model}}>
+            {{t "alertPage.newOrEdit.removeAlert"}}
+          </button>
+        {{/if}}
+      </div>
+    {{else}}
+      <!-- 28px is the height of the button, no jumpy -->
+      <div style="height: 28px;"></div>
+    {{/if}}
+  </div>
+  <div class="row">
+    <div class="col span-1 text-right">
+      <div class="pt-10">
+        <label>
+          {{t "formNameDescription.name.label"}}
+        </label>
+      </div>
+    </div>
+    <div class="col span-10">
+      {{input
+        type="text"
+        value=model.name
+        placeholder=(t "formNameDescription.name.placeholder")
+      }}
+    </div>
+  </div>
+  <section class="row">
+    <div class="col span-1 text-right">
+      <div class="pt-10">
+        <label>
+          {{t "alertPage.newOrEdit.whenAn"}}
+        </label>
+      </div>
+    </div>
+
+    <div class="col span-1">
+      <div class="pt-10">
+        <label>
+          {{t "alertPage.newOrEdit.expression.label"}}
+        </label>
+      </div>
+    </div>
+
+    <div class="col span-10">
+      <div class="row">
+        <div class="col span-9 mt-0">
+          {{input
+            type="text"
+            value=model.metricRule.expression
+            placeholder=(t "alertPage.newOrEdit.expression.placeholder")
+          }}
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr/>
+  <section class="row">
+    {{alert/form-comparison-row
+      model=model
+    }}
+  </section>
+
+  <section class="row">
+    <div class="col span-1 text-right">
+      {{t "alertPage.newOrEdit.sendA"}}
+    </div>
+    <div class="col span-10">
+      <label class="acc-label mr-10">
+        <RadioButton
+          @selection={{model.severity}}
+          @value="critical"
+        />
+        {{t "alertPage.newOrEdit.critical"}}
+      </label>
+      <label class="acc-label mr-10">
+        <RadioButton
+          @selection={{model.severity}}
+          @value="warning"
+        />
+        {{t "alertPage.newOrEdit.warning"}}
+      </label>
+      <label class="acc-label mr-10">
+        <RadioButton
+          @selection={{model.severity}}
+          @value="info"
+        />
+        {{t "alertPage.newOrEdit.info"}}
+      </label>
+    </div>
+    {{#if (and (eq mode "new") (eq level "group"))}}
+      <AdvancedSection
+        @advanced={{advanced}}
+      >
+        <div class="row">
+          <div class="col span-10 offset-1">
+            {{alert/form-row-advanced
+              model=model
+              alertGroup=alertGroup
+              level="rule"
+              customClass="box"
+            }}
+          </div>
+        </div>
+      </AdvancedSection>
+    {{/if}}
+  </section>
+
+  {{#if (and (eq mode "edit") (eq level "group"))}}
+    <hr/>
+    <div class="row">
+      <div class="col span-10 offset-1">
+        {{#unless showAdvancedSection}}
+          <label class="acc-label mt-20">
+            {{t "alertPage.newOrEdit.inherited.label"}}
+          </label>
+          <div>
+            {{#if model.inherited}}
+              {{t "generic.enabled"}}
+            {{else}}
+              {{t "generic.disabled"}}
+            {{/if}}
+            <button class="btn bg-transparent text-small p-0" {{action "showAdvanced"}}>
+              <i class="icon icon-edit"/>
+            </button>
+          </div>
+        {{else}}
+          {{alert/form-row-advanced
+            model=model
+            alertGroup=alertGroup
+          }}
+        {{/unless}}
+      </div>
+    </div>
+  {{/if}}
+</div>
+
+{{#if (eq level "rule")}}
+  {{alert/form-advanced
+    model=model
+    alertGroup=alertGroup
+    level=level
+  }}
+{{/if}}

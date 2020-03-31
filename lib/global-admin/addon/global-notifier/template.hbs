@@ -1,0 +1,13 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>{{t "notifierPage.globalNotifiers"}}</h1></div>
+  <div class="right-buttons">
+    <button
+      class="btn btn-sm bg-primary"
+      {{action "showNewEditModal"}}
+    >
+      {{t "notifierPage.index.addActionLabel"}}
+    </button>
+  </div>
+</section>
+
+{{notifier/notifier-table model=model}}

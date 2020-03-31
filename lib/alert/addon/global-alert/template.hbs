@@ -1,0 +1,24 @@
+{{#if (not-eq settings.globalMonitoringEnabled "true")}}
+  <BannerMessage
+    @color="bg-warning"
+    @icon="icon-alert"
+    @message={{t "globalAlertPage.globalAlertNotEnabled"}}
+  />
+{{/if}}
+<section class="header clearfix">
+  <div class="pull-left pt-10">
+    <h1 class="text-capitalize">
+      {{t "globalAlertPage.header"}}
+    </h1>
+  </div>
+  <div class="right-buttons">
+    {{#link-to "new" classNames="btn btn-sm bg-primary"}}{{t 'alertPage.index.addAlertGroup'}}{{/link-to}}
+  </div>
+</section>
+
+<AlertTable
+  @alerts={{model.alerts}}
+  @notifiers={{model.notifiers}}
+  @groups={{model.groups}}
+  @pageScope="global"
+/>

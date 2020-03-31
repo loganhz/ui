@@ -120,6 +120,8 @@ export default Mixin.create({
         get(this, 'router').transitionTo('authenticated.cluster.alert.edit', id);
       } else if (ps === 'project') {
         get(this, 'router').transitionTo('authenticated.project.alert.edit', id);
+      } else {
+        this.router.transitionTo('global-admin.alert.edit', id);
       }
     },
     mute() {

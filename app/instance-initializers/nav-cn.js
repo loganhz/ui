@@ -562,6 +562,24 @@ const rootNav = [
         initExpand:     'global-admin.global-dns.providers'
       },
       {
+        id:             'global-alert',
+        localizedLabel: 'nav.admin.globalAlert',
+        route:          'global-admin.alert.global-alert',
+        resourceScope:  'global',
+        condition() {
+          return !!get(this, 'access.admin');
+        }
+      },
+      {
+        id:             'global-notifier',
+        localizedLabel: 'nav.admin.globalNotifier',
+        route:          'global-admin.global-notifier',
+        resourceScope:  'global',
+        condition() {
+          return !!get(this, 'access.admin');
+        }
+      },
+      {
         id:             'global-monitoring',
         localizedLabel: 'nav.admin.globalMonitoring',
         route:          'global-admin.global-monitoring',

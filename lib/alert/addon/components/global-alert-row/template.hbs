@@ -1,0 +1,74 @@
+<tr class="main-row">
+  {{#if bulkActions}}
+    <td
+      valign="middle"
+      class="row-check"
+      style="padding-top: 2px;"
+    >
+      <CheckBox @nodeId={{model.id}} />
+    </td>
+  {{/if}}
+
+  <td data-title="{{dt.state}}" class="clip">
+    <BadgeState @model={{model}}/>
+  </td>
+  <td data-title="{{dt.name}}" class="clip">
+    <TooltipElement
+       @type="tooltip-basic"
+       @model={{model.name}}
+       @tooltipTemplate="tooltip-static"
+       @aria-describedby="tooltip-base"
+       @placement="top"
+       @tagName="div"
+       @clip={{true}}
+    >
+      {{model.name}}
+    </TooltipElement>
+  </td>
+  <td data-title="{{dt.target}}" class="clip">
+    <div> {{model.displayTargetType}} </div>
+  </td>
+
+  <td data-title="{{dt.condition}}" class="clip">
+    {{#if (eq model.targetType "metric")}}
+      <TooltipElement
+         @type="tooltip-basic"
+         @model={{model.metricRule.expression}}
+         @tooltipTemplate="tooltip-static"
+         @aria-describedby="tooltip-base"
+         @tooltipFor="tooltipLink"
+         @placement="top"
+      >
+        {{model.displayCondition}}
+      </TooltipElement>
+    {{else}}
+      {{model.displayCondition}}
+    {{/if}}
+  </td>
+
+  <td data-title="{{dt.recipients}}" class="clip">
+    {{#if alertGroup.recipients.length}}
+      {{#if (eq alertGroup.recipients.length 1)}}
+        <div class="clip">
+          {{alertGroup.displayRecipient}}
+        </div>
+      {{else if (gt alertGroup.recipients.length 1)}}
+        <TooltipElement
+           @type="tooltip-basic"
+           @model={{recipientsTip}}
+           @tooltipTemplate="tooltip-static"
+           @aria-describedby="tooltip-base"
+           @tooltipFor="tooltipLink"
+        >
+          <div class="text-link">{{alertGroup.displayRecipient}}</div>
+        </TooltipElement>
+      {{/if}}
+    {{else}}
+      {{t "alertPage.na"}}
+    {{/if}}
+  </td>
+
+  <td data-title="{{t "generic.actions"}}" class="actions">
+    <ActionMenu @model={{model}}/>
+  </td>
+</tr>
